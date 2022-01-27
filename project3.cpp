@@ -4,7 +4,18 @@
 //============================_TASK_1_============================
 void pushBackEndAverage(std::list<float>& n)
 {
-	
+	float sum = 0;
+	for (const float& v : n)
+	{
+		sum += v;
+	}
+
+	n.push_back(sum / n.size());
+
+	std::cout << "{";
+	for (auto print : n)
+		std::cout << " " << print << " ";
+	std::cout << "}" << std::endl;
 
 }
 
