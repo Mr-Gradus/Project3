@@ -1,7 +1,9 @@
 ﻿  project3.cpp
-D:\YandexDisk\Coding\GeekBrains\C++ сложные моменты\Project3\project3.cpp(32,52): warning C4305: инициализация: усечение из "double" в "_Ty"
+D:\YandexDisk\Coding\GeekBrains\C++ сложные моменты\Project3\project3.cpp(110,32): warning C4267: аргумент: преобразование из "size_t" в "const int"; возможна потеря данных
+D:\YandexDisk\Coding\GeekBrains\C++ сложные моменты\Project3\project3.cpp(220,52): warning C4305: инициализация: усечение из "double" в "_Ty"
           with
           [
               _Ty=float
           ]
+D:\YandexDisk\Coding\GeekBrains\C++ сложные моменты\Project3\project3.cpp(230,13): warning C4267: аргумент: преобразование из "size_t" в "const int"; возможна потеря данных
   Project3.vcxproj -> D:\YandexDisk\Coding\GeekBrains\C++ сложные моменты\Project3\x64\Debug\Project3.exe
