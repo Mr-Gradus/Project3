@@ -3,7 +3,7 @@
 #include <random>
 #include <iomanip>
 #include <math.h>
-#include <cstddef>
+#include <cstdlib>
 
 //============================_TASK_1_============================
 void pushBackEndAverage(std::list<float>& n)
@@ -37,11 +37,15 @@ private:
 	double expectDeterminant(Matrix& arr);
 public:
 	Matrix(const int size);
+	
 	void randomFillMatrix();
+	
 	void print() const;
+	
 	size_t size() const;
+	
 	double determinant() const;
-
+	
 	class Iter {
 	private:
 		double* m_value;
@@ -54,14 +58,16 @@ public:
 	};
 
 	Iter operator[](size_t i);
+	
 	Iter begin();
+	
 	Iter end();
-
+	
 	~Matrix();
 };
 
 
-Matrix::Matrix(const int size) : m_Size(size), m_Capacity(size* size)
+Matrix::Matrix(const int size) : m_Size(size), m_Capacity(size * size)
 {
 	array = new double[m_Capacity];
 }
@@ -110,7 +116,7 @@ Matrix Matrix::getMatrix(Matrix& arr, const size_t item)
 	Matrix newArray(arr.size() - 1);
 	size_t currentRow = 0;
 
-	for (size_t i = 0; i < arr.size(); ++i)
+	for (size_t i = 0; i < arr.size() - 1; ++i)
 	{
 		if (item == i)
 		{
@@ -124,6 +130,7 @@ Matrix Matrix::getMatrix(Matrix& arr, const size_t item)
 		}
 
 		++currentRow;
+		
 	}
 
 	return newArray;
@@ -132,51 +139,56 @@ Matrix Matrix::getMatrix(Matrix& arr, const size_t item)
 
 double Matrix::expectDeterminant(Matrix& arr)
 {
-	double determinant = 0;
+	double det = 0.0;
 
 	if (arr.size() == 1)
 	{
-		determinant = arr[0][0];
+		det = arr[0][0];
 	}
-	if (arr.size() == 2)
+	else if (arr.size() == 2)
 	{
-		determinant = arr[0][0] * arr[1][1] - arr[1][0] * arr[0][1];
+		det = arr[0][0] * arr[1][1] - arr[1][0] * arr[0][1];
 	}
-	if (arr.size() > 2)
+	else if (arr.size() == 3)
 	{
-		int d = 1;
+		det = (arr[0][0] * arr[1][1] * arr[2][2]) - (arr[0][0] * arr[2][1] * arr[1][2]) - (arr[0][1] * arr[1][0] * arr[2][2]) + (arr[0][1] * arr[2][0] * arr[1][2]) + (arr[0][2] * arr[1][0] * arr[2][1]) - (arr[0][2] * arr[2][0] * arr[1][1]);
+	}
+	
+	
+	else 
+	{
 
 		for (size_t i = 0; i < arr.size(); ++i)
 		{
 			Matrix newArray = getMatrix(arr, i);
-			determinant = determinant + d * arr[i][0] * expectDeterminant(newArray);
-			d = (-d);
+			det += pow(-1, i + 2) * arr[0][i] * expectDeterminant(newArray);
+			det = -det;
+			
 		}
 	}
 
-	return determinant;
+	return det;
 }
 
 
 void Matrix::randomFillMatrix()
 {
 	
-	std::random_device rd;
-	std::mt19937 mersenne(rd());                                   
-	std::uniform_real_distribution<double> urd(-10.0, 10.0);       
+	std::mt19937 gen(time (0));                                   
+	std::uniform_real_distribution<double> urd(-5.0, 5.0);       
+	
 
 	for (size_t i = 0; i < m_Capacity; ++i)
 	{
-		*(array + i) = round(urd(mersenne) * 10) / 10;
+		*(array + i) = round(urd(gen) * 5) / 5;
+		
 	}
-
 	m_Determinant = expectDeterminant((*this));
-	
 }
 
 void Matrix::print() const
 {
-	std::cout << '{';
+	std::cout << "MATRIX:" << "\n" << '{';
 
 	for (size_t i = 0; i < m_Capacity;)
 	{
@@ -223,17 +235,18 @@ int main()
 	
 	std::cout << "\n" << "============================_TASK_2_============================" << "\n" << std::endl;
 		
-
-	for (size_t i = 1; i < 11; ++i)
-	{
-		std::cout << "Matrix " << i << 'x' << i << ':' << std::endl;
-		Matrix m(i);
-		m.randomFillMatrix();
-		m.print();
-		std::cout << "Determinant: " << std::setprecision(3) << m.determinant() << "\n\n";
-		
-	}
 	
+	int x;
+	std::cout << "Enter the square matrix size: ";
+	std::cin >> x;
+	
+	
+	Matrix m(x);
+	m.randomFillMatrix();
+	m.print();
+	std::cout << "Determinant: " << m.determinant() << std::endl;
+	
+
 
 	return 0;
 }
