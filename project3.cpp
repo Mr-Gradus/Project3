@@ -56,7 +56,7 @@ public:
 		bool operator !=(const Iter& iter);
 		double& operator *();
 	};
-
+	// task 3 
 	Iter operator[](size_t i);
 	
 	Iter begin();
@@ -246,7 +246,7 @@ int main()
 	m.print();
 	std::cout << "Determinant: " << m.determinant() << std::endl;
 	
-
+	
 
 	return 0;
 }
