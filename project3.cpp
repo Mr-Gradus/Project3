@@ -247,6 +247,17 @@ int main()
 	std::cout << "Determinant: " << m.determinant() << std::endl;
 	
 	
+	std::cout << "\n" << "============================_TASK_3_============================" << "\n" << std::endl;
+	
+	Matrix matrix(3);
+	matrix.randomFillMatrix();
+
+	for (const double& i : matrix)
+	{
+		std::cout << "{" << i << "}";
+	}
+
+	std::cout << std::endl;
 
 	return 0;
 }
